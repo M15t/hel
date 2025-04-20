@@ -106,6 +106,23 @@ func (s *Redis) HSet(key string, values interface{}, expiration time.Duration) e
 	return s.rd.Expire(s.ctx, key, expiration).Err()
 }
 
+// HSetArray to set array value to key as hashmap
+func (s *Redis) HSetArray(hashKey, field string, arr []string) error {
+	// Serialize the array to JSON
+	arrJSON, err := json.Marshal(arr)
+	if err != nil {
+		return fmt.Errorf("error marshalling array to JSON: %v", err)
+	}
+
+	// Use HSET to store the serialized array as a string value
+	err = s.rd.HSet(s.ctx, hashKey, field, string(arrJSON)).Err()
+	if err != nil {
+		return fmt.Errorf("error setting array in hash: %v", err)
+	}
+
+	return nil
+}
+
 // HDel to delete field from key as hashmap
 func (s *Redis) HDel(key string, fields ...string) error {
 	return s.rd.HDel(s.ctx, key, fields...).Err()

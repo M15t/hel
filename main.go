@@ -11,12 +11,16 @@ import (
 )
 
 func main() {
+	startCLI()
+}
+
+func startCLI() error {
 	fs := fshare.New()
 
 	// step 1: receive input from command line
 	for {
 		var input string
-		fmt.Print("Enter something: ")
+		fmt.Print("Enter anything: ")
 		fmt.Scan(&input)
 
 		if input == "exit" {
@@ -74,6 +78,8 @@ func main() {
 			}
 		}
 	}
+
+	return nil
 }
 
 func checkErr(err error) {

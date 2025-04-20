@@ -20,7 +20,7 @@ type FSCredentials struct {
 // and returns the credentials. If the credentials are found in the cache, it retrieves and returns them.
 // The function handles Redis operations and error checking internally.
 func GetCreds(fs *fshare.Fshare) (*FSCredentials, error) {
-	addr := "127.0.0.1:6379"
+	addr := "127.0.0.1:6380"
 	key := "fs:creds"
 
 	rd := redis.New(&redis.Config{
